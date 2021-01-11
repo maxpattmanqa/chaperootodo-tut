@@ -1,5 +1,5 @@
 pipeline{
-    enviroment {
+    environment {
          imagename = "maxpaqzrio/chaperootodo_client"
     registryCredential = 'dockerhub-credentials'
     dockerImage = ''
