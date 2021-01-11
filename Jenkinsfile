@@ -3,6 +3,7 @@ pipeline{
         environment {
             app_version = 'v1'
             rollback = 'false'
+            echo 'enviroment set'
         }
         stages{
             stage('Build Image'){
@@ -12,6 +13,7 @@ pipeline{
                             image = docker.build("maxpaqzrio/chaperoo-frontend")
                         }
                     }
+                     echo 'image has been built'
                 }
             }
             stage('Tag & Push Image'){
@@ -22,6 +24,7 @@ pipeline{
                                 image.push("${env.app_version}")
                             }
                         }
+                         echo 'image tagged and pushed '
                     }
                 }
             }
