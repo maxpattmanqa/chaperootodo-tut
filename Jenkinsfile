@@ -8,6 +8,7 @@ pipeline{
         stages{
             stage('Build Image'){
                 steps{
+                    
                     script{
                         if (env.rollback == 'false'){
                             image = docker.build("maxpaqzrio/chaperoo-frontend")
@@ -17,14 +18,15 @@ pipeline{
                 }
             }
             stage('Tag & Push Image'){
-                steps{
+                steps{ 
+                 
                     script{
                         if (env.rollback == 'false'){
                             docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials'){
                                 image.push("${env.app_version}")
                             }
                         }
-                         echo 'image tagged and pushed '
+                           echo 'image tagged and pushed '
                     }
                 }
             }
