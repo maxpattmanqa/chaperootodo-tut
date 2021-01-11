@@ -1,34 +1,33 @@
 pipeline{
-    environment {
-         imagename = "maxpaqzrio/chaperootodo_client"
-    registryCredential = 'dockerhub-credentials'
-    dockerImage = ''
-    }
         agent any
-        stages{
-            stage('Building image'){
-                steps{
-                    echo 'building image'
-                    script{
-                    dockerImage = docker.build imagename
-                    }
-            }
-            }
-             stage('Deploy Image') {
-                steps{
-                    script {
-                        docker.withRegistry( '', registryCredential ) {
-                        dockerImage.push("$BUILD_NUMBER")
-                        dockerImage.push('latest')
-
-          }
+        environment {
+            app_version = 'v1'
+            rollback = 'false'
         }
-      }
-    }
-            stage('Make Files'){
+        stages{
+            stage('Build Image'){
                 steps{
-                   
-                    echo 'made files'
+                    script{
+                        if (env.rollback == 'false'){
+                            image = docker.build("maxpaqzrio/chaperoo-frontend")
+                        }
+                    }
+                }
+            }
+            stage('Tag & Push Image'){
+                steps{
+                    script{
+                        if (env.rollback == 'false'){
+                            docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials'){
+                                image.push("${env.app_version}")
+                            }
+                        }
+                    }
+                }
+            }
+            stage('Deploy App'){
+                steps{
+                    sh "docker-compose pull && docker-compose up -d"
                 }
             }
         }
