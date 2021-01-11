@@ -9,8 +9,10 @@ pipeline{
             stage('Building image'){
                 steps{
                     echo 'building image'
+                    script{
                     dockerImage = docker.build imagename
                 }
+            }
             }
              stage('Deploy Image') {
                 steps{
