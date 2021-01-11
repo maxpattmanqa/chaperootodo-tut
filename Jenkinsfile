@@ -1,35 +1,15 @@
 pipeline{
         agent any
-        environment {
-            app_version = 'v1'
-            rollback = 'false'
-        }
         stages{
-            stage('Build Image'){
+            stage('Make Directory'){
                 steps{
-                    
-                    script{
-                        if (env.rollback == 'false'){
-                            image = docker.build("maxpaqzrio/chaperoo-frontend")
-                        }
-                    }
+                    echo 'made directory'
                 }
             }
-            stage('Tag & Push Image'){
-                steps{ 
-                 
-                    script{
-                        if (env.rollback == 'false'){
-                            docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials'){
-                                image.push("${env.app_version}")
-                            }
-                        }
-                    }
-                }
-            }
-            stage('Deploy App'){
+            stage('Make Files'){
                 steps{
-                    sh "docker-compose pull && docker-compose up -d"
+                    sh "touch ~/jenkins-tutorial-test/file1 ~/jenkins-tutorial-test/file2"
+                    echo 'made files'
                 }
             }
         }
