@@ -3,7 +3,6 @@ pipeline{
         environment {
             app_version = 'v1'
             rollback = 'false'
-           
         }
         stages{
             stage('Build Image'){
