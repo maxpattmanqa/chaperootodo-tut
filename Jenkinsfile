@@ -26,7 +26,7 @@ pipeline{
                                 image.push("${env.app_version}")
                             }
                         }
-                           echo 'image tagged and pushed '
+                           echo 'images tagged and pushed'
                     }
                 }
             }
