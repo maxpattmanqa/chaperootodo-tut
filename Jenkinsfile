@@ -3,12 +3,12 @@ pipeline{
         environment {
             app_version = 'v1'
             rollback = 'false'
-            echo 'enviroment set'
+           
         }
         stages{
             stage('Build Image'){
                 steps{
-                    
+                     echo 'enviroment set'
                     script{
                         if (env.rollback == 'false'){
                             image = docker.build("maxpaqzrio/chaperoo-frontend")
