@@ -1,9 +1,15 @@
 pipeline{
+    enviroment {
+         imagename = "maxpaqzrio/chaperootodo_client"
+    registryCredential = 'dockerhub-credentials'
+    dockerImage = ''
+    }
         agent any
         stages{
-            stage('Make Directory'){
+            stage('Building image'){
                 steps{
-                    echo 'made directory'
+                    echo 'building image'
+                    dockerImage = docker.build imagename
                 }
             }
             stage('Make Files'){
