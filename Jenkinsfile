@@ -3,7 +3,7 @@ pipeline{
         environment {
             app_version = 'v1'
             rollback = 'false'
-            echo 'enviroment set'
+            
         }
         stages{
             stage('Build Image'){
