@@ -14,7 +14,7 @@ pipeline{
                             image = docker.build("maxpaqzrio/chaperoo-frontend")
                         }
                     }
-                     echo 'image has been built'
+                     
                 }
             }
             stage('Tag & Push Image'){
@@ -26,7 +26,7 @@ pipeline{
                                 image.push("${env.app_version}")
                             }
                         }
-                           echo 'images tagged and pushed'
+                           
                     }
                 }
             }
